@@ -1,7 +1,8 @@
 import React from 'react'
+import Dashboard from './Dashboard'
 
 export default () => (
   <div>
-    Some boilerplate, eh?
+    <Dashboard />
   </div>
 )

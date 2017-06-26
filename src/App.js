@@ -6,6 +6,7 @@ import { ApolloProvider } from 'react-apollo'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { StyleRoot } from 'radium'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import Routes from './routes'
 
@@ -42,9 +43,11 @@ function App(props) {
             ]}
           />
           <StyleRoot>
-            <Router>
-              <Routes />
-            </Router>
+            <MuiThemeProvider>
+              <Router>
+                <Routes />
+              </Router>
+            </MuiThemeProvider>
           </StyleRoot>
         </div>
       </Provider>
