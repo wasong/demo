@@ -71,6 +71,49 @@ const selections = [
         label: 'Salmon',
         value: 'salmon',
       },
+      {
+        label: 'Salami',
+        value: 'salami',
+      },
+      {
+        label: 'Bacon',
+        value: 'bacon',
+      },
+    ],
+  },
+  {
+    title: 'Sauce',
+    ingredient: 'sauce',
+    subtitle: 'Choose your sauce',
+    types: [
+      {
+        label: 'BBQ',
+        value: 'bbq',
+      },
+      {
+        label: 'Mayo',
+        value: 'Mayo',
+      },
+      {
+        label: 'Spicy',
+        value: 'spicy',
+      },
+      {
+        label: 'Ketchup',
+        value: 'ketchup',
+      },
+      {
+        label: 'Mustard',
+        value: 'mustard',
+      },
+      {
+        label: 'Garlic',
+        value: 'garlic',
+      },
+      {
+        label: 'Mushroom',
+        value: 'mushroom',
+      },
     ],
   },
 ]
@@ -95,7 +138,7 @@ class Dashboard extends Component {
             types,
           }) => (
             <Selections
-              items={orders.vegetables.length ? [...orders.vegetables, ...Object.values(orders)].filter(item => !Array.isArray(item)) : Object.values(orders).filter(item => !Array.isArray(item))}
+              items={[...orders.vegetables, ...orders.meat, ...orders.sauce].length ? [...orders.vegetables, ...orders.meat, ...orders.sauce, ...Object.values(orders)].filter(item => !Array.isArray(item)) : Object.values(orders).filter(item => !Array.isArray(item))}
               onChange={changeMenu}
               ingredient={ingredient}
               key={title}

@@ -34,6 +34,7 @@ const Selections = ({
             label={label}
             style={styles.types}
             backgroundColor={items.includes(value) ? '#93DB78' : '#FFFFFF'}
+            labelStyle={{ 'text-transform': 'initial' }}
           />
         ))
       }
