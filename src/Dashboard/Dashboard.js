@@ -50,6 +50,29 @@ const selections = [
       },
     ],
   },
+  {
+    title: 'Meat',
+    ingredient: 'meat',
+    subtitle: 'Choose your meat',
+    types: [
+      {
+        label: 'Ham',
+        value: 'ham',
+      },
+      {
+        label: 'Sausage',
+        value: 'sausage',
+      },
+      {
+        label: 'Turkey',
+        value: 'turkey',
+      },
+      {
+        label: 'Salmon',
+        value: 'salmon',
+      },
+    ],
+  },
 ]
 
 class Dashboard extends Component {
@@ -62,7 +85,6 @@ class Dashboard extends Component {
         changeMenu,
       },
     } = this.props
-
     return (
       <div>
         {
@@ -73,6 +95,7 @@ class Dashboard extends Component {
             types,
           }) => (
             <Selections
+              items={orders.vegetables.length ? [...orders.vegetables, ...Object.values(orders)].filter(item => !Array.isArray(item)) : Object.values(orders).filter(item => !Array.isArray(item))}
               onChange={changeMenu}
               ingredient={ingredient}
               key={title}

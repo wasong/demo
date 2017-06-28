@@ -16,6 +16,7 @@ const Selections = ({
   ingredient,
   types,
   onChange,
+  items,
 }) => (
   <Card>
     <CardHeader
@@ -32,13 +33,13 @@ const Selections = ({
             onClick={() => onChange(ingredient, value)}
             label={label}
             style={styles.types}
+            backgroundColor={items.includes(value) ? '#93DB78' : '#FFFFFF'}
           />
         ))
       }
     </CardText>
   </Card>
 )
-
 Selections.propTypes = {}
 Selections.defaultProps = {}
 
