@@ -51,7 +51,6 @@ const Selections = ({
     </CardText>
   </Card>
 )
-
 Selections.propTypes = {}
 Selections.defaultProps = {}
 
