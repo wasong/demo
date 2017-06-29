@@ -50,6 +50,72 @@ const selections = [
       },
     ],
   },
+  {
+    title: 'Meats',
+    ingredient: 'meats',
+    subtitle: 'Choose your meats',
+    types: [
+      {
+        label: 'Ham',
+        value: 'ham',
+      },
+      {
+        label: 'Sausage',
+        value: 'sausage',
+      },
+      {
+        label: 'Turkey',
+        value: 'turkey',
+      },
+      {
+        label: 'Salmon',
+        value: 'salmon',
+      },
+      {
+        label: 'Salami',
+        value: 'salami',
+      },
+      {
+        label: 'Bacon',
+        value: 'bacon',
+      },
+    ],
+  },
+  {
+    title: 'Sauces',
+    ingredient: 'sauces',
+    subtitle: 'Choose your sauces',
+    types: [
+      {
+        label: 'BBQ',
+        value: 'bbq',
+      },
+      {
+        label: 'Mayo',
+        value: 'Mayo',
+      },
+      {
+        label: 'Spicy',
+        value: 'spicy',
+      },
+      {
+        label: 'Ketchup',
+        value: 'ketchup',
+      },
+      {
+        label: 'Mustard',
+        value: 'mustard',
+      },
+      {
+        label: 'Garlic',
+        value: 'garlic',
+      },
+      {
+        label: 'Mushroom',
+        value: 'mushroom',
+      },
+    ],
+  },
 ]
 
 class Dashboard extends Component {
@@ -79,6 +145,7 @@ class Dashboard extends Component {
               title={title}
               subtitle={subtitle}
               types={types}
+              selectedTypes={this.props.orders[ingredient]}
             />
           ))
         }
@@ -87,8 +154,12 @@ class Dashboard extends Component {
   }
 }
 
-Dashboard.propTypes = {}
-Dashboard.defaultProps = {}
+Dashboard.propTypes = {
+  orders: PropTypes.objectOf(PropTypes.node),
+}
+Dashboard.defaultProps = {
+  orders: {},
+}
 
 const mapStateToProps = ({ dashboard }) => ({
   ...dashboard,

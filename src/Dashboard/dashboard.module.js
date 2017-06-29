@@ -21,7 +21,7 @@ export const actions = {
 // ------------------------------------
 
 const orderHandler = (state, { name, value }) => {
-  if (name === 'vegetables') {
+  if (name === 'vegetables' || name === 'meats' || name === 'sauces') {
     return {
       ...state,
       [name]: state[name].includes(value) ?
@@ -47,7 +47,10 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = {
   orders: {
+    bread: '',
     vegetables: [],
+    meats: [],
+    sauces: [],
   },
 }
 
