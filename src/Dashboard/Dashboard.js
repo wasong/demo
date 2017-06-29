@@ -31,14 +31,26 @@ const styles = {
 }
 
 class Dashboard extends Component {
-  state = {}
+  state = {
+    bread: false,
+    meats: false,
+    vegetables: false,
+    sauces: false,
+    cheeses: false,
+  }
+
+  handleExpandChange = name => this.setState({ [name]: !this.state[name] })
+  handleCreate = () => {
+    ['bread', 'meats', 'vegetables', 'sauces', 'cheeses'].forEach(i => this.handleExpandChange(i))
+    this.props.actions.createOrder(shortId().new())
+  }
+
 
   render() {
     const {
       orders,
       actions: {
         changeMenu,
-        createOrder,
       },
     } = this.props
 
@@ -58,6 +70,8 @@ class Dashboard extends Component {
               title={title}
               subtitle={subtitle}
               types={types}
+              expanded={this.state.expanded}
+              onExpandChange={this.handleExpandChange}
               selectedTypes={this.props.orders[ingredient]}
             />
           ))
@@ -68,7 +82,7 @@ class Dashboard extends Component {
             label="Create"
             style={styles.create}
             buttonStyle={styles.createBtn}
-            onClick={() => createOrder(shortId().new())}
+            onClick={this.handleCreate}
           />
         </div>
       </div>

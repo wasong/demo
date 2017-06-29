@@ -25,8 +25,10 @@ const Selections = ({
   types,
   onChange,
   selectedTypes,
+  expanded,
+  onExpandChange,
 }) => (
-  <Card>
+  <Card expanded={expanded} onExpandChange={() => onExpandChange(ingredient)}>
     <CardHeader
       title={title}
       subtitle={subtitle}

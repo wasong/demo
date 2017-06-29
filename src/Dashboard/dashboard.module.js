@@ -68,6 +68,13 @@ const ACTION_HANDLERS = {
         ...state.orders,
       },
     ],
+    orders: {
+      bread: '',
+      vegetables: [],
+      cheeses: [],
+      meats: [],
+      sauces: [],
+    },
   }),
   [LOAD_ORDER]: (state, action) => ({
     ...state,
