@@ -47,14 +47,59 @@ class List extends Component {
                   cheeses,
                   meats,
                   sauces,
-              }) => (
+              }, index) => (
                 <LIST key={orderId}>
                   <Divider />
-                  <ListItem primaryText={bread ? bread[0].toUpperCase().concat(bread.substring(1)) : bread} />
-                  <ListItem primaryText={this.printList('vegetables', vegetables)} />
-                  <ListItem primaryText={this.printList('cheeses', cheeses)} />
-                  <ListItem primaryText={this.printList('meats', meats)} />
-                  <ListItem primaryText={this.printList('sauces', sauces)} />
+                  <span style={{ color: 'blue' }}> Order No.{index + 1} </span>
+                  <ListItem
+                    primaryText="Breads"
+                    nestedItems={bread ? [
+                      <ListItem
+                        key={1}
+                        primaryText={bread[0].toUpperCase().concat(bread.substring(1))}
+                      />,
+                    ] : []}
+                  />
+                  <ListItem
+                    primaryText="Vetgetables"
+                    nestedItems={
+                      this.printList('vegetables', vegetables).map((item, index) => (
+                        <ListItem
+                          key={index}
+                          primaryText={item}
+                        />
+                      ))}
+                  />
+                  <ListItem
+                    primaryText="Cheeses"
+                    nestedItems={
+                      this.printList('cheeses', cheeses).map((item, index) => (
+                        <ListItem
+                          key={index}
+                          primaryText={item}
+                        />
+                      ))}
+                  />
+                  <ListItem
+                    primaryText="Meats"
+                    nestedItems={
+                      this.printList('meats', meats).map((item, index) => (
+                        <ListItem
+                          key={index}
+                          primaryText={item}
+                        />
+                      ))}
+                  />
+                  <ListItem
+                    primaryText="Sauces"
+                    nestedItems={
+                      this.printList('sauces', sauces).map((item, index) => (
+                        <ListItem
+                          key={index}
+                          primaryText={item}
+                        />
+                      ))}
+                  />
                 </LIST>
               ))
             }
