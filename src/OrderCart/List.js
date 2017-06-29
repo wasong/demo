@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import Radium from 'radium'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
-
+import Divider from 'material-ui/Divider'
+import { List as LIST, ListItem } from 'material-ui/List'
 import data from '../Dashboard/data'
 import { actions } from '../Dashboard/dashboard.module'
 
@@ -47,15 +48,14 @@ class List extends Component {
                   meats,
                   sauces,
               }) => (
-                <div key={orderId}>
-                  <hr />
-                  <div>{bread}</div>
-                  <div>{this.printList('vegetables', vegetables)}</div>
-                  <div>{this.printList('cheeses', cheeses)}</div>
-                  <div>{this.printList('meats', meats)}</div>
-                  <div>{this.printList('sauces', sauces)}</div>
-                  <hr />
-                </div>
+                <LIST key={orderId}>
+                  <Divider />
+                  <ListItem primaryText={bread ? bread[0].toUpperCase().concat(bread.substring(1)) : bread} />
+                  <ListItem primaryText={this.printList('vegetables', vegetables)} />
+                  <ListItem primaryText={this.printList('cheeses', cheeses)} />
+                  <ListItem primaryText={this.printList('meats', meats)} />
+                  <ListItem primaryText={this.printList('sauces', sauces)} />
+                </LIST>
               ))
             }
           </CardText>

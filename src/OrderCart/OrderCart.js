@@ -25,7 +25,7 @@ class OrderCart extends Component {
     return (
       <div style={styles.root}>
         <List created={[]} open={this.state.open} />
-        <FloatingActionButton onClick={this.toggleDisplay}>ICON</FloatingActionButton>
+        <FloatingActionButton onClick={this.toggleDisplay}>Show Orders</FloatingActionButton>
       </div>
     )
   }
