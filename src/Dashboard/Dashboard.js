@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import Radium from 'radium'
 import RaisedButton from 'material-ui/RaisedButton'
+import shortId from 'short-uuid'
 
 import selectionData from './data'
 import Selections from './Selections'
@@ -37,6 +38,7 @@ class Dashboard extends Component {
       orders,
       actions: {
         changeMenu,
+        createOrder,
       },
     } = this.props
 
@@ -61,7 +63,14 @@ class Dashboard extends Component {
           ))
         }
         <OrderCart />
-        <div style={styles.btnWrapper}><RaisedButton label="Create" style={styles.create} buttonStyle={styles.createBtn} /></div>
+        <div style={styles.btnWrapper}>
+          <RaisedButton
+            label="Create"
+            style={styles.create}
+            buttonStyle={styles.createBtn}
+            onClick={() => createOrder(shortId().new())}
+          />
+        </div>
       </div>
     )
   }

@@ -24,7 +24,7 @@ class OrderCart extends Component {
   render() {
     return (
       <div style={styles.root}>
-        <List open={this.state.open} />
+        <List created={[]} open={this.state.open} />
         <FloatingActionButton onClick={this.toggleDisplay}>ICON</FloatingActionButton>
       </div>
     )

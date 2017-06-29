@@ -3,6 +3,7 @@
 // ------------------------------------
 const CHANGE_MENU = 'CHANGE_MENU'
 const CREATE_ORDER = 'CREATE_ORDER'
+const LOAD_ORDER = 'LOAD_ORDER'
 
 // ------------------------------------
 // Actions
@@ -13,12 +14,20 @@ export const changeMenu = (name, value) => ({
   value,
 })
 
-export const createOrder = () => ({
+export const createOrder = id => ({
   type: CREATE_ORDER,
+  id,
+})
+
+export const loadOrder = orderId => ({
+  type: CREATE_ORDER,
+  orderId,
 })
 
 export const actions = {
   changeMenu,
+  createOrder,
+  loadOrder,
 }
 
 // ------------------------------------
@@ -50,9 +59,19 @@ const ACTION_HANDLERS = {
     ...state,
     orders: orderHandler(state.orders, action),
   }),
-  [CREATE_ORDER]: state => ({
+  [CREATE_ORDER]: (state, action) => ({
     ...state,
-    created: [...state.created, state.orders],
+    created: [
+      ...state.created,
+      {
+        orderId: action.id,
+        ...state.orders,
+      },
+    ],
+  }),
+  [LOAD_ORDER]: (state, action) => ({
+    ...state,
+    orders: { ...state.created.find(order => action.orderId === order.id) },
   }),
 }
 
@@ -63,6 +82,7 @@ const initialState = {
   orders: {
     bread: '',
     vegetables: [],
+    cheeses: [],
     meats: [],
     sauces: [],
   },

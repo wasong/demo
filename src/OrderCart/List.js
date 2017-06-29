@@ -5,7 +5,8 @@ import PropTypes from 'prop-types'
 import Radium from 'radium'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 
-import { actions } from ''
+import data from '../Dashboard/data'
+import { actions } from '../Dashboard/dashboard.module'
 
 const styles = {
   root: {
@@ -21,6 +22,9 @@ const styles = {
 class List extends Component {
   state = {}
 
+  findLabel = (name, value) => (data.find(i => i.ingredient === name).types.find(type => type.value === value)).label
+  printList = (name, list) => list.map(item => <span key={item}>{this.findLabel(name, item)}&nbsp;</span>)
+
   render() {
     const {
       created,
@@ -35,10 +39,22 @@ class List extends Component {
           />
           <CardText>
             {
-              created.map((i) => {
-                console.log(i)
-                return <span />
-              })
+              created.map(({
+                  orderId,
+                  bread,
+                  vegetables,
+                  cheeses,
+                  meats,
+                  sauces,
+              }) => (
+                <div key={orderId}>
+                  <div>{bread}</div>
+                  <div>{this.printList('vegetables', vegetables)}</div>
+                  <div>{this.printList('cheeses', cheeses)}</div>
+                  <div>{this.printList('meats', meats)}</div>
+                  <div>{this.printList('sauces', sauces)}</div>
+                </div>
+              ))
             }
           </CardText>
         </Card>
@@ -47,8 +63,12 @@ class List extends Component {
   }
 }
 
-List.propTypes = {}
-List.defaultProps = {}
+List.propTypes = {
+  created: PropTypes.arrayOf(PropTypes.object),
+}
+List.defaultProps = {
+  created: [],
+}
 
 const mapStateToProps = ({ dashboard }) => ({
   created: dashboard.created,
