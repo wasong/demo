@@ -30,6 +30,8 @@ const styles = {
   },
 }
 
+const ingredientList = ['bread', 'meats', 'vegetables', 'sauces', 'cheeses']
+
 class Dashboard extends Component {
   state = {
     bread: false,
@@ -40,8 +42,9 @@ class Dashboard extends Component {
   }
 
   handleExpandChange = name => this.setState({ [name]: !this.state[name] })
+  closeAllExpanded = name => this.setState({ [name]: false })
   handleCreate = () => {
-    ['bread', 'meats', 'vegetables', 'sauces', 'cheeses'].forEach(i => this.handleExpandChange(i))
+    ingredientList.forEach(i => this.closeAllExpanded(i))
     this.props.actions.createOrder(shortId().new())
   }
 
@@ -70,7 +73,7 @@ class Dashboard extends Component {
               title={title}
               subtitle={subtitle}
               types={types}
-              expanded={this.state.expanded}
+              expanded={this.state[ingredient]}
               onExpandChange={this.handleExpandChange}
               selectedTypes={this.props.orders[ingredient]}
             />

@@ -48,11 +48,13 @@ class List extends Component {
                   sauces,
               }) => (
                 <div key={orderId}>
+                  <hr />
                   <div>{bread}</div>
                   <div>{this.printList('vegetables', vegetables)}</div>
                   <div>{this.printList('cheeses', cheeses)}</div>
                   <div>{this.printList('meats', meats)}</div>
                   <div>{this.printList('sauces', sauces)}</div>
+                  <hr />
                 </div>
               ))
             }
