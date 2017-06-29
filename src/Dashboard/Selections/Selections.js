@@ -14,7 +14,6 @@ const styles = {
 }
 
 const handleSelectionType = (selectedTypes, value) => {
-  console.log(selectedTypes, value)
   if (Array.isArray(selectedTypes)) return !!selectedTypes.find(t => t === value)
   return selectedTypes === value
 }

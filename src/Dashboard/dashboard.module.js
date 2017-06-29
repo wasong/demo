@@ -2,6 +2,7 @@
 // Constants
 // ------------------------------------
 const CHANGE_MENU = 'CHANGE_MENU'
+const CREATE_ORDER = 'CREATE_ORDER'
 
 // ------------------------------------
 // Actions
@@ -10,6 +11,10 @@ export const changeMenu = (name, value) => ({
   type: CHANGE_MENU,
   name,
   value,
+})
+
+export const createOrder = () => ({
+  type: CREATE_ORDER,
 })
 
 export const actions = {
@@ -21,7 +26,12 @@ export const actions = {
 // ------------------------------------
 
 const orderHandler = (state, { name, value }) => {
-  if (name === 'vegetables' || name === 'meats' || name === 'sauces') {
+  if (
+    name === 'vegetables' ||
+    name === 'meats' ||
+    name === 'sauces' ||
+    name === 'cheeses'
+  ) {
     return {
       ...state,
       [name]: state[name].includes(value) ?
@@ -40,6 +50,10 @@ const ACTION_HANDLERS = {
     ...state,
     orders: orderHandler(state.orders, action),
   }),
+  [CREATE_ORDER]: state => ({
+    ...state,
+    created: [...state.created, state.orders],
+  }),
 }
 
 // ------------------------------------
@@ -52,6 +66,7 @@ const initialState = {
     meats: [],
     sauces: [],
   },
+  created: [],
 }
 
 export default function reducer(state = initialState, action) {

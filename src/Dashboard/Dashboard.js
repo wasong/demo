@@ -3,120 +3,31 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import Radium from 'radium'
+import RaisedButton from 'material-ui/RaisedButton'
 
+import selectionData from './data'
 import Selections from './Selections'
+import OrderCart from '../OrderCart'
 import { actions as dashboardActions } from './dashboard.module'
 
-const selections = [
-  {
-    title: 'Bread',
-    ingredient: 'bread',
-    subtitle: 'Choose your preferred bread',
-    types: [
-      {
-        label: 'White',
-        value: 'white',
-      },
-      {
-        label: 'Rye',
-        value: 'rye',
-      },
-      {
-        label: 'Whole Wheat',
-        value: 'wholeWheat',
-      },
-    ],
+const styles = {
+  root: {
+    position: 'relative',
+    minHeight: '100vh',
   },
-  {
-    title: 'Vegetables',
-    ingredient: 'vegetables',
-    subtitle: 'Choose your vegetables',
-    types: [
-      {
-        label: 'Lettuce',
-        value: 'lettuce',
-      },
-      {
-        label: 'Tomatos',
-        value: 'tomato',
-      },
-      {
-        label: 'Olives',
-        value: 'olive',
-      },
-      {
-        label: 'Banana Peppers',
-        value: 'bananaPepper',
-      },
-    ],
+  btnWrapper: {
+    width: '100%',
+    textAlign: 'center',
   },
-  {
-    title: 'Meats',
-    ingredient: 'meats',
-    subtitle: 'Choose your meats',
-    types: [
-      {
-        label: 'Ham',
-        value: 'ham',
-      },
-      {
-        label: 'Sausage',
-        value: 'sausage',
-      },
-      {
-        label: 'Turkey',
-        value: 'turkey',
-      },
-      {
-        label: 'Salmon',
-        value: 'salmon',
-      },
-      {
-        label: 'Salami',
-        value: 'salami',
-      },
-      {
-        label: 'Bacon',
-        value: 'bacon',
-      },
-    ],
+  create: {
+    margin: '24px 0',
+    textTransform: 'initial',
+    borderRadius: 20,
   },
-  {
-    title: 'Sauces',
-    ingredient: 'sauces',
-    subtitle: 'Choose your sauces',
-    types: [
-      {
-        label: 'BBQ',
-        value: 'bbq',
-      },
-      {
-        label: 'Mayo',
-        value: 'Mayo',
-      },
-      {
-        label: 'Spicy',
-        value: 'spicy',
-      },
-      {
-        label: 'Ketchup',
-        value: 'ketchup',
-      },
-      {
-        label: 'Mustard',
-        value: 'mustard',
-      },
-      {
-        label: 'Garlic',
-        value: 'garlic',
-      },
-      {
-        label: 'Mushroom',
-        value: 'mushroom',
-      },
-    ],
+  createBtn: {
+    borderRadius: 20,
   },
-]
+}
 
 class Dashboard extends Component {
   state = {}
@@ -130,9 +41,9 @@ class Dashboard extends Component {
     } = this.props
 
     return (
-      <div>
+      <div style={styles.root}>
         {
-          selections.map(({
+          selectionData.map(({
             title,
             subtitle,
             ingredient,
@@ -149,6 +60,8 @@ class Dashboard extends Component {
             />
           ))
         }
+        <OrderCart />
+        <div style={styles.btnWrapper}><RaisedButton label="Create" style={styles.create} buttonStyle={styles.createBtn} /></div>
       </div>
     )
   }

@@ -1,15 +1,31 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import Radium from 'radium'
 import PropTypes from 'prop-types'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 
+import List from './List'
+
+const styles = {
+  root: {
+    position: 'fixed',
+    right: 10,
+    bottom: 10,
+    zIndex: 2,
+  },
+}
+
 class OrderCart extends Component {
-  state = {}
+  state = {
+    open: false,
+  }
+
+  toggleDisplay = () => this.setState({ open: !this.state.open })
 
   render() {
     return (
-      <div>
-        <FloatingActionButton>ICON</FloatingActionButton>
+      <div style={styles.root}>
+        <List open={this.state.open} />
+        <FloatingActionButton onClick={this.toggleDisplay}>ICON</FloatingActionButton>
       </div>
     )
   }
@@ -18,10 +34,4 @@ class OrderCart extends Component {
 OrderCart.propTypes = {}
 OrderCart.defaultProps = {}
 
-const mapStateToProps = ({ dashboard: { orders } }) => ({
-  orders,
-})
-
-const mapDispatchToProps = () => ({})
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrderCart)
+export default Radium(OrderCart)
