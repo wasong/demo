@@ -56,6 +56,7 @@ class Dashboard extends Component {
         changeMenu,
       },
     } = this.props
+
     return (
       <div style={styles.root}>
         {
@@ -66,7 +67,6 @@ class Dashboard extends Component {
             types,
           }) => (
             <Selections
-              items={[...orders.vegetables, ...orders.meat, ...orders.sauce].length ? [...orders.vegetables, ...orders.meat, ...orders.sauce, ...Object.values(orders)].filter(item => !Array.isArray(item)) : Object.values(orders).filter(item => !Array.isArray(item))}
               onChange={changeMenu}
               ingredient={ingredient}
               key={title}
