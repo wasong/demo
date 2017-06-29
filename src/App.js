@@ -29,7 +29,7 @@ function App(props) {
       <Provider store={props.store}>
         <div>
           <Helmet
-            titleTemplate="%s | Some Boilerplate"
+            titleTemplate="%s | Cmpt470 Demo"
             meta={[
               { charset: 'utf-8' },
               {
