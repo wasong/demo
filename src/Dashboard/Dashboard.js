@@ -3,123 +3,51 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import Radium from 'radium'
+import RaisedButton from 'material-ui/RaisedButton'
+import shortId from 'short-uuid'
 
+import selectionData from './data'
 import Selections from './Selections'
+import OrderCart from '../OrderCart'
 import { actions as dashboardActions } from './dashboard.module'
 
-const selections = [
-  {
-    title: 'Bread',
-    ingredient: 'bread',
-    subtitle: 'Choose your preferred bread',
-    types: [
-      {
-        label: 'White',
-        value: 'white',
-      },
-      {
-        label: 'Rye',
-        value: 'rye',
-      },
-      {
-        label: 'Whole Wheat',
-        value: 'wholeWheat',
-      },
-    ],
+const styles = {
+  root: {
+    position: 'relative',
+    minHeight: '100vh',
   },
-  {
-    title: 'Vegetables',
-    ingredient: 'vegetables',
-    subtitle: 'Choose your vegetables',
-    types: [
-      {
-        label: 'Lettuce',
-        value: 'lettuce',
-      },
-      {
-        label: 'Tomatos',
-        value: 'tomato',
-      },
-      {
-        label: 'Olives',
-        value: 'olive',
-      },
-      {
-        label: 'Banana Peppers',
-        value: 'bananaPepper',
-      },
-    ],
+  btnWrapper: {
+    width: '100%',
+    textAlign: 'center',
   },
-  {
-    title: 'Meat',
-    ingredient: 'meat',
-    subtitle: 'Choose your meat',
-    types: [
-      {
-        label: 'Ham',
-        value: 'ham',
-      },
-      {
-        label: 'Sausage',
-        value: 'sausage',
-      },
-      {
-        label: 'Turkey',
-        value: 'turkey',
-      },
-      {
-        label: 'Salmon',
-        value: 'salmon',
-      },
-      {
-        label: 'Salami',
-        value: 'salami',
-      },
-      {
-        label: 'Bacon',
-        value: 'bacon',
-      },
-    ],
+  create: {
+    margin: '24px 0',
+    textTransform: 'initial',
+    borderRadius: 20,
   },
-  {
-    title: 'Sauce',
-    ingredient: 'sauce',
-    subtitle: 'Choose your sauce',
-    types: [
-      {
-        label: 'BBQ',
-        value: 'bbq',
-      },
-      {
-        label: 'Mayo',
-        value: 'Mayo',
-      },
-      {
-        label: 'Spicy',
-        value: 'spicy',
-      },
-      {
-        label: 'Ketchup',
-        value: 'ketchup',
-      },
-      {
-        label: 'Mustard',
-        value: 'mustard',
-      },
-      {
-        label: 'Garlic',
-        value: 'garlic',
-      },
-      {
-        label: 'Mushroom',
-        value: 'mushroom',
-      },
-    ],
+  createBtn: {
+    borderRadius: 20,
   },
-]
+}
+
+const ingredientList = ['bread', 'meats', 'vegetables', 'sauces', 'cheeses']
 
 class Dashboard extends Component {
-  state = {}
+  state = {
+    bread: false,
+    meats: false,
+    vegetables: false,
+    sauces: false,
+    cheeses: false,
+  }
+
+  handleExpandChange = name => this.setState({ [name]: !this.state[name] })
+  closeAllExpanded = name => this.setState({ [name]: false })
+  handleCreate = () => {
+    ingredientList.forEach(i => this.closeAllExpanded(i))
+    this.props.actions.createOrder(shortId().new())
+  }
+
 
   render() {
     const {
@@ -129,9 +57,9 @@ class Dashboard extends Component {
       },
     } = this.props
     return (
-      <div>
+      <div style={styles.root}>
         {
-          selections.map(({
+          selectionData.map(({
             title,
             subtitle,
             ingredient,
@@ -145,16 +73,32 @@ class Dashboard extends Component {
               title={title}
               subtitle={subtitle}
               types={types}
+              expanded={this.state[ingredient]}
+              onExpandChange={this.handleExpandChange}
+              selectedTypes={this.props.orders[ingredient]}
             />
           ))
         }
+        <OrderCart />
+        <div style={styles.btnWrapper}>
+          <RaisedButton
+            label="Create"
+            style={styles.create}
+            buttonStyle={styles.createBtn}
+            onClick={this.handleCreate}
+          />
+        </div>
       </div>
     )
   }
 }
 
-Dashboard.propTypes = {}
-Dashboard.defaultProps = {}
+Dashboard.propTypes = {
+  orders: PropTypes.objectOf(PropTypes.node),
+}
+Dashboard.defaultProps = {
+  orders: {},
+}
 
 const mapStateToProps = ({ dashboard }) => ({
   ...dashboard,

@@ -6,8 +6,16 @@ import RaisedButton from 'material-ui/RaisedButton'
 
 const styles = {
   types: {
-    margin: '0 12px 0 0',
+    margin: '0 12px 12px 0',
   },
+  label: {
+    textTransform: 'initial',
+  },
+}
+
+const handleSelectionType = (selectedTypes, value) => {
+  if (Array.isArray(selectedTypes)) return !!selectedTypes.find(t => t === value)
+  return selectedTypes === value
 }
 
 const Selections = ({
@@ -16,9 +24,11 @@ const Selections = ({
   ingredient,
   types,
   onChange,
-  items,
+  selectedTypes,
+  expanded,
+  onExpandChange,
 }) => (
-  <Card>
+  <Card expanded={expanded} onExpandChange={() => onExpandChange(ingredient)}>
     <CardHeader
       title={title}
       subtitle={subtitle}
@@ -33,8 +43,8 @@ const Selections = ({
             onClick={() => onChange(ingredient, value)}
             label={label}
             style={styles.types}
-            backgroundColor={items.includes(value) ? '#93DB78' : '#FFFFFF'}
-            labelStyle={{ 'text-transform': 'initial' }}
+            labelStyle={styles.label}
+            primary={handleSelectionType(selectedTypes, value)}
           />
         ))
       }

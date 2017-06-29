@@ -2,6 +2,8 @@
 // Constants
 // ------------------------------------
 const CHANGE_MENU = 'CHANGE_MENU'
+const CREATE_ORDER = 'CREATE_ORDER'
+const LOAD_ORDER = 'LOAD_ORDER'
 
 // ------------------------------------
 // Actions
@@ -12,8 +14,20 @@ export const changeMenu = (name, value) => ({
   value,
 })
 
+export const createOrder = id => ({
+  type: CREATE_ORDER,
+  id,
+})
+
+export const loadOrder = orderId => ({
+  type: CREATE_ORDER,
+  orderId,
+})
+
 export const actions = {
   changeMenu,
+  createOrder,
+  loadOrder,
 }
 
 // ------------------------------------
@@ -21,7 +35,12 @@ export const actions = {
 // ------------------------------------
 
 const orderHandler = (state, { name, value }) => {
-  if (name === 'vegetables' || name === 'meat' || name === 'sauce') {
+  if (
+    name === 'vegetables' ||
+    name === 'meats' ||
+    name === 'sauces' ||
+    name === 'cheeses'
+  ) {
     return {
       ...state,
       [name]: state[name].includes(value) ?
@@ -40,6 +59,27 @@ const ACTION_HANDLERS = {
     ...state,
     orders: orderHandler(state.orders, action),
   }),
+  [CREATE_ORDER]: (state, action) => ({
+    ...state,
+    created: [
+      ...state.created,
+      {
+        orderId: action.id,
+        ...state.orders,
+      },
+    ],
+    orders: {
+      bread: '',
+      vegetables: [],
+      cheeses: [],
+      meats: [],
+      sauces: [],
+    },
+  }),
+  [LOAD_ORDER]: (state, action) => ({
+    ...state,
+    orders: { ...state.created.find(order => action.orderId === order.id) },
+  }),
 }
 
 // ------------------------------------
@@ -47,10 +87,13 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = {
   orders: {
+    bread: '',
     vegetables: [],
-    meat: [],
-    sauce: [],
+    cheeses: [],
+    meats: [],
+    sauces: [],
   },
+  created: [],
 }
 
 export default function reducer(state = initialState, action) {
