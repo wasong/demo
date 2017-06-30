@@ -1,4 +1,4 @@
 module.exports = {
-  title: 'SomeBoilerplate',
+  title: 'Group 2 Demo',
   url: '',
 }
